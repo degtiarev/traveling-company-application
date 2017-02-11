@@ -1,0 +1,229 @@
+œCREATE TABLE CLIENT 
+(
+  ID_CLIENT NUMBER(*, 0) NOT NULL 
+, LAST_NAME VARCHAR2(50 BYTE) NOT NULL 
+, FIRST_NAME VARCHAR2(50 BYTE) NOT NULL 
+, PATRONYMIC VARCHAR2(50 BYTE) NOT NULL 
+, ADDRESS VARCHAR2(100 BYTE) NOT NULL 
+, PHONE VARCHAR2(12 BYTE) NOT NULL 
+, CONSTRAINT CLIENT_PK PRIMARY KEY 
+  (
+    ID_CLIENT 
+  )
+ ENABLE 
+);
+
+
+CREATE TABLE COUNTRY 
+(
+  ID_COUNTRY NUMBER(*, 0) NOT NULL 
+, NAME VARCHAR2(50 BYTE) NOT NULL 
+, CONSTRAINT COUNTRY_PK PRIMARY KEY 
+  (
+    ID_COUNTRY 
+  )
+ENABLE 
+);
+
+
+CREATE TABLE EMPLOYEE 
+(
+  ID_EMPLOYEE NUMBER(*, 0) NOT NULL 
+, LAST_NAME VARCHAR2(50 BYTE) NOT NULL 
+, FIRST_NAME VARCHAR2(50 BYTE) NOT NULL 
+, PATRONYMIC VARCHAR2(50 BYTE) NOT NULL 
+, BIRTHDATE DATE NOT NULL 
+, SALARY NUMBER(*, 0) NOT NULL 
+, POSITION VARCHAR2(50 BYTE) NOT NULL 
+, ADDRESS VARCHAR2(100 BYTE) NOT NULL 
+, PHONE VARCHAR2(12 BYTE) NOT NULL 
+, LOGIN VARCHAR2(20 BYTE) 
+, PASSWORD VARCHAR2(20 BYTE) 
+, ISADMIN VARCHAR2(20 BYTE) 
+, CONSTRAINT EMPLOYEE_PK PRIMARY KEY 
+  (
+    ID_EMPLOYEE 
+  )
+   ENABLE 
+);
+
+
+CREATE TABLE ORDERS 
+(
+  ID_ORDER NUMBER(*, 0) NOT NULL 
+, ID_TOUR NUMBER(*, 0) NOT NULL 
+, ID_EMPLOYEE NUMBER(*, 0) NOT NULL 
+, ID_CLIENT NUMBER(*, 0) NOT NULL 
+, REGISTRATION_DATE DATE NOT NULL 
+, SALE_PRICE NUMBER 
+CONSTRAINT EMPLOYEE_PK PRIMARY KEY 
+  (
+    ID_ORDER
+  )
+   ENABLE 
+);
+
+
+CREATE TABLE SERVICES 
+(
+  ID_SERVIS NUMBER(*, 0) NOT NULL 
+, ID_COUNTRY NUMBER(*, 0) NOT NULL 
+, VISA_SERVICE VARCHAR2(1 BYTE) NOT NULL 
+, RESIDENCE VARCHAR2(50 BYTE) NOT NULL 
+, NUTRITION VARCHAR2(50 BYTE) NOT NULL 
+, EXCURSIONS VARCHAR2(50 BYTE) NOT NULL 
+, CONSTRAINT SERVICES_PK PRIMARY KEY 
+  (
+    ID_SERVIS 
+  )
+   ENABLE 
+);
+
+
+CREATE TABLE TOURS 
+(
+  ID_TOURS NUMBER(*, 0) NOT NULL 
+, ID_SERVIS NUMBER(*, 0) NOT NULL 
+, ID_TRANSPORT NUMBER(*, 0) NOT NULL 
+, DISPATCH_DATE DATE NOT NULL 
+, ARRIVAL_DATE DATE NOT NULL 
+, TOUR_PRICE NUMBER(*, 0) NOT NULL 
+, STAY_LENGTH NUMBER(*, 0) NOT NULL 
+, PERSON_NUMBER NUMBER(*, 0) NOT NULL 
+, CONSTRAINT TOURS_PK PRIMARY KEY 
+  (
+    ID_TOURS 
+  )
+     ENABLE 
+);
+
+CREATE TABLE TRANSPORT 
+(
+  ID_TRANSPORT NUMBER(*, 0) NOT NULL 
+, NAME VARCHAR2(50 BYTE) NOT NULL 
+, CONSTRAINT TRANSPORT_PK PRIMARY KEY 
+  (
+    ID_TRANSPORT 
+  )
+    ENABLE 
+);
+
+******************************************************************************************************************
+
+   CREATE SEQUENCE  "DELEXA"."SClientId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 101 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "DELEXA"."SCountryId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 101 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "DELEXA"."SEmployeeId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 103 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "DELEXA"."SOrderId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 155 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "DELEXA"."SServicesId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 101 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "DELEXA"."STourId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 101 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "DELEXA"."STransportId"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 101 NOCACHE  NOORDER  NOCYCLE ;
+
+******************************************************************************************************************
+
+create or replace trigger "IdClient" 
+before  insert on Client
+for each row 
+begin 
+select "SClientId".nextval
+into :new.ID_Client
+from dual;
+end;
+
+
+create or replace trigger "IdCountry" 
+before  insert on Country
+for each row 
+begin 
+select "SCountryId".nextval
+into :new.ID_Country
+from dual;
+end;
+
+
+create or replace trigger "IdEmployee" 
+before  insert on employee
+for each row 
+begin 
+select "SEmployeeId".nextval
+into :new.ID_employee
+from dual;
+end;
+
+
+create or replace trigger "IdOrders" 
+before  insert on Orders
+for each row 
+begin 
+select "SOrderId".nextval
+into :new.ID_Order
+from dual;
+end;
+
+
+create or replace trigger "IdServices" 
+before  insert on Services
+for each row 
+begin 
+select "SServicesId".nextval
+into :new.ID_Servis
+from dual;
+end;
+
+
+create or replace trigger "IdTours" 
+before  insert on Tours
+for each row 
+begin 
+select "STourId".nextval
+into :new.ID_Tours
+from dual;
+end;
+
+
+create or replace trigger "IdTransport" 
+before  insert on Transport
+for each row 
+begin 
+select "STransportId".nextval
+into :new.ID_Transport
+from dual;
+end;
+
+******************************************************************************************************************
+
+create or replace trigger discount
+before INSERT on orders
+for EACH row
+declare
+
+amount number;
+my_id_tour orders.id_tour%type;
+
+begin
+
+select id_tour into my_id_tour
+from orders
+where id_tour=:new.id_tour;
+
+update tours
+set person_number=person_number-1
+where id_tours=my_id_tour;
+
+
+select count(id_client) into amount
+from orders
+where id_client=:new.id_client;
+
+if amount>=5 and amount<10 then
+:new.sale_price:=:new.sale_price*0.98;
+elsif amount>=10 and amount<15 then
+:new.sale_price:=:new.sale_price*0.94;
+elsif amount>=15 and amount<20 then
+:new.sale_price:=:new.sale_price*0.95;
+elsif amount>=20 then
+:new.sale_price:=:new.sale_price*0.93;
+
+end if;
+
+end;
+

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="ID_CLIENT" />
+          </Key>
+          <Property Name="ID_CLIENT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PATRONYMIC" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COUNTRY">
+          <Key>
+            <PropertyRef Name="ID_COUNTRY" />
+          </Key>
+          <Property Name="ID_COUNTRY" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID_EMPLOYEE" />
+          </Key>
+          <Property Name="ID_EMPLOYEE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PATRONYMIC" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="BIRTHDATE" Type="date" Nullable="false" />
+          <Property Name="SALARY" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="POSITION" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="20" />
+          <Property Name="PASSWORD" Type="varchar2" MaxLength="20" />
+          <Property Name="ISADMIN" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="ID_ORDER" />
+          </Key>
+          <Property Name="ID_ORDER" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TOUR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_EMPLOYEE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="REGISTRATION_DATE" Type="date" Nullable="false" />
+          <Property Name="SALE_PRICE" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="SERVICES">
+          <Key>
+            <PropertyRef Name="ID_SERVIS" />
+          </Key>
+          <Property Name="ID_SERVIS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COUNTRY" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VISA_SERVICE" Type="varchar2" MaxLength="1" Nullable="false" />
+          <Property Name="RESIDENCE" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="NUTRITION" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="EXCURSIONS" Type="varchar2" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOURS">
+          <Key>
+            <PropertyRef Name="ID_TOURS" />
+          </Key>
+          <Property Name="ID_TOURS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SERVIS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TRANSPORT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DISPATCH_DATE" Type="date" Nullable="false" />
+          <Property Name="ARRIVAL_DATE" Type="date" Nullable="false" />
+          <Property Name="TOUR_PRICE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STAY_LENGTH" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PERSON_NUMBER" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRANSPORT">
+          <Key>
+            <PropertyRef Name="ID_TRANSPORT" />
+          </Key>
+          <Property Name="ID_TRANSPORT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="DELEXA" store:Type="Tables" />
+          <EntitySet Name="COUNTRY" EntityType="Self.COUNTRY" Schema="DELEXA" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="DELEXA" store:Type="Tables" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" Schema="DELEXA" store:Type="Tables" />
+          <EntitySet Name="SERVICES" EntityType="Self.SERVICES" Schema="DELEXA" store:Type="Tables" />
+          <EntitySet Name="TOURS" EntityType="Self.TOURS" Schema="DELEXA" store:Type="Tables" />
+          <EntitySet Name="TRANSPORT" EntityType="Self.TRANSPORT" Schema="DELEXA" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="ID_CLIENT" />
+          </Key>
+          <Property Name="ID_CLIENT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATRONYMIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COUNTRY">
+          <Key>
+            <PropertyRef Name="ID_COUNTRY" />
+          </Key>
+          <Property Name="ID_COUNTRY" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID_EMPLOYEE" />
+          </Key>
+          <Property Name="ID_EMPLOYEE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATRONYMIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BIRTHDATE" Type="DateTime" Nullable="false" />
+          <Property Name="SALARY" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="POSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ISADMIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="ID_ORDER" />
+          </Key>
+          <Property Name="ID_ORDER" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TOUR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_EMPLOYEE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="REGISTRATION_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="SALE_PRICE" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="SERVICES">
+          <Key>
+            <PropertyRef Name="ID_SERVIS" />
+          </Key>
+          <Property Name="ID_SERVIS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COUNTRY" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VISA_SERVICE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RESIDENCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NUTRITION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EXCURSIONS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOURS">
+          <Key>
+            <PropertyRef Name="ID_TOURS" />
+          </Key>
+          <Property Name="ID_TOURS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SERVIS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TRANSPORT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DISPATCH_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="ARRIVAL_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="TOUR_PRICE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STAY_LENGTH" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PERSON_NUMBER" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRANSPORT">
+          <Key>
+            <PropertyRef Name="ID_TRANSPORT" />
+          </Key>
+          <Property Name="ID_TRANSPORT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
+          <EntitySet Name="COUNTRY" EntityType="Self.COUNTRY" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" />
+          <EntitySet Name="SERVICES" EntityType="Self.SERVICES" />
+          <EntitySet Name="TOURS" EntityType="Self.TOURS" />
+          <EntitySet Name="TRANSPORT" EntityType="Self.TRANSPORT" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="CLIENT">
+            <EntityTypeMapping TypeName="Model.CLIENT">
+              <MappingFragment StoreEntitySet="CLIENT">
+                <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="PATRONYMIC" ColumnName="PATRONYMIC" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COUNTRY">
+            <EntityTypeMapping TypeName="Model.COUNTRY">
+              <MappingFragment StoreEntitySet="COUNTRY">
+                <ScalarProperty Name="ID_COUNTRY" ColumnName="ID_COUNTRY" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEE">
+            <EntityTypeMapping TypeName="Model.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="ID_EMPLOYEE" ColumnName="ID_EMPLOYEE" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="PATRONYMIC" ColumnName="PATRONYMIC" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ISADMIN" ColumnName="ISADMIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="Model.ORDERS">
+              <MappingFragment StoreEntitySet="ORDERS">
+                <ScalarProperty Name="ID_ORDER" ColumnName="ID_ORDER" />
+                <ScalarProperty Name="ID_TOUR" ColumnName="ID_TOUR" />
+                <ScalarProperty Name="ID_EMPLOYEE" ColumnName="ID_EMPLOYEE" />
+                <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+                <ScalarProperty Name="REGISTRATION_DATE" ColumnName="REGISTRATION_DATE" />
+                <ScalarProperty Name="SALE_PRICE" ColumnName="SALE_PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SERVICES">
+            <EntityTypeMapping TypeName="Model.SERVICES">
+              <MappingFragment StoreEntitySet="SERVICES">
+                <ScalarProperty Name="ID_SERVIS" ColumnName="ID_SERVIS" />
+                <ScalarProperty Name="ID_COUNTRY" ColumnName="ID_COUNTRY" />
+                <ScalarProperty Name="VISA_SERVICE" ColumnName="VISA_SERVICE" />
+                <ScalarProperty Name="RESIDENCE" ColumnName="RESIDENCE" />
+                <ScalarProperty Name="NUTRITION" ColumnName="NUTRITION" />
+                <ScalarProperty Name="EXCURSIONS" ColumnName="EXCURSIONS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOURS">
+            <EntityTypeMapping TypeName="Model.TOURS">
+              <MappingFragment StoreEntitySet="TOURS">
+                <ScalarProperty Name="ID_TOURS" ColumnName="ID_TOURS" />
+                <ScalarProperty Name="ID_SERVIS" ColumnName="ID_SERVIS" />
+                <ScalarProperty Name="ID_TRANSPORT" ColumnName="ID_TRANSPORT" />
+                <ScalarProperty Name="DISPATCH_DATE" ColumnName="DISPATCH_DATE" />
+                <ScalarProperty Name="ARRIVAL_DATE" ColumnName="ARRIVAL_DATE" />
+                <ScalarProperty Name="TOUR_PRICE" ColumnName="TOUR_PRICE" />
+                <ScalarProperty Name="STAY_LENGTH" ColumnName="STAY_LENGTH" />
+                <ScalarProperty Name="PERSON_NUMBER" ColumnName="PERSON_NUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSPORT">
+            <EntityTypeMapping TypeName="Model.TRANSPORT">
+              <MappingFragment StoreEntitySet="TRANSPORT">
+                <ScalarProperty Name="ID_TRANSPORT" ColumnName="ID_TRANSPORT" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
